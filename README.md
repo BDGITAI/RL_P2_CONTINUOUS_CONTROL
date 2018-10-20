@@ -72,7 +72,7 @@ For the project to run you will require the Windows version of the Continous Con
 #### Base files for deep learning
 During the Udacity lectures the DDPG algorithm was introduced and covered the implementation made by [Shangtong Zhang](https://github.com/ShangtongZhang). This agent used in this project is based on the code published on Shangtong's repository. 
 
-### Run the project  
+### 2. Run the project  
  
 #### Structure
 

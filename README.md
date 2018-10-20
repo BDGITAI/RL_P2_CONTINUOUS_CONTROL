@@ -16,20 +16,22 @@
   
 #### The Environment  
   
- We train an agent to control an arm.  The agent's goal is to provide controls on each of the arm joints to keep in contact with a target sphere moving around a central point.  
+We train an agent to control an arm.  The agent's goal is to provide controls on each of the arm joints to keep in contact with a target sphere moving around a central point.  
+In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
  
 ##### Environment Observation space  
- The state space has 33 dimensions  ....  
-  
+The observation space consists of 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm.
+
 ##### Action space  
- To control the arm, four ontinuous actions are available
+To control the arm, four ontinuous actions are available.
+Each action is a vector with four numbers, corresponding to torque applicable to two joints. Every entry in the action vector should be a number between -1 and 1.
   
 ##### Reward mechanism  
- Reward is given at each time step where the hand of the arm is in contact with the target sphere. 
+Reward is given at each time step where the hand of the arm is in contact with the target sphere. 
 If visualising the environment, the sphere is semi transparent when the agent is not reaching it.
 
 ##### Criteria for solving the environment  
- The task is continuous, and in order to solve the environment, the agent must get an average score of +30 over 100 consecutive episodes.  
+The task is continuous, and in order to solve the environment, the agent must get an average score of +30 over 100 consecutive episodes.  
 One episode is 1000 time step long.
 
 ### 1. Getting Started  
@@ -72,7 +74,7 @@ During the Udacity lectures the DDPG algorithm was introduced and covered the im
 
 ### Run the project  
  
- #### Structure
+#### Structure
 
  The project folder contains two differents Jupyter notebooks:  
 1. ContinuousControl_1agent : Notebook containing the implementation done for environment training one agent 
@@ -81,7 +83,10 @@ During the Udacity lectures the DDPG algorithm was introduced and covered the im
 #### Execution
 
 Launch the jupyter notebook
-`jupyter notebook Navigation_DQN.ipynb`
+`jupyter notebook ContinuousControl_1agent.ipynb`
+or
+`jupyter notebook ContinuousControl_20agents.ipynb`
+
 
 
 

@@ -14,37 +14,43 @@ The chosen algorithm is DDPG (see [Continuous control with deep reinforcement le
 
 The DDPG algorithm is an Actor Critic method built on the principles used in Deep Q learning (algorithm use in my first project). It uses a memory to store experiences and learned from them using a random sampling, thus breaking the correlation between consecutive experiences. It also uses a target network to help with the error computation stability. Instead of using a direct weight update a soft target update is used during the learning.
 
-#### Actor Critic
-
-The Actor Critic algorithm aims is at the crossroads of Value based method and Policy based method. In the first project, I implemented a DQN algorithm that associated a value to each pair (state,action). In that case the action space was both finite and discrete. Which is not the case in this new environmnent. Policy based method aimed a finding directly the best policy. However with this method, by waiting until the end of the episode to compute the reward we may not not see good actions if the episode was a failure.
-
-The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see (Actor - Critic Algorithms)[http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf]
-
-We can see the two networks being trained in by the agent while he steps:
-`critic_loss.backward()`
-`policy_loss.backward()`
-
-#####
-
 *Replay* 
+
 `self.replay.feed([self.state, action, reward, next_state, int(done)])`
 
 *Soft update* 
+
 `   def soft_update(self, target, src):
         for target_param, param in zip(target.parameters(), src.parameters()):
             target_param.detach_()
             target_param.copy_(target_param * (1.0 - self.config.target_network_mix) +
                                     param * self.config.target_network_mix)`
 
+#### Actor Critic
+
+The Actor Critic algorithm aims is at the crossroads of Value based method and Policy based method. In the first project, I implemented a DQN algorithm that associated a value to each pair (state,action). In that case the action space was both finite and discrete. Which is not the case in this new environmnent. Policy based method aimed a finding directly the best policy. However with this method, by waiting until the end of the episode to compute the reward we may not not see good actions if the episode was a failure.
+
+The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see (Actor - Critic Algorithms)[http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf]
+
+
+We can see the two networks being trained in by the agent while he steps:
+
+`critic_loss.backward()`
+`policy_loss.backward()`
+
 ### Hyperparameters
 
 * DDPG
+
 Define the replay buffer size (number of experiences stored) Increased compared to default to help with training
 `Replay(memory_size=int(1e7), batch_size=64)    # replay buffer size`
 
 DDPG uses a local AC Network and a target AC Network for stability purposes. The target network weights are updated with local weights using soft update using parametre TAU (mixing parametre section 7 of DDPG paper 1e-3
+
 `config.target_network_mix = 1e-3             # for soft update of target parameters`
+
 Learning rate used for optimiser . Value from research paper 1e-4 for actor and 1 e-3 for critic
+
 `actor_opt_fn=lambda params: torch.optim.Adam(params, lr=1e-4),
 critic_opt_fn=lambda params: torch.optim.Adam(params, lr=1e-3)))               # learning rate `
 
@@ -52,7 +58,9 @@ GAMMA used in expected reward computation.
 `    config.discount = 0.99           # discount factor`
 
 * Optimizer
+
 Adam optimizer is chosen over SGD as it converges faster in early stages of training (see [Improving Generalization Performance by Switching from Adam to SGD](https://arxiv.org/pdf/1712.07628.pdf)
+
 `torch.optim.Adam(params, lr=1e-4)`
 
 ### Result

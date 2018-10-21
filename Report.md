@@ -73,7 +73,9 @@ With a memory size increase to 1e7, the agent was trained over 2000 episodes rea
 The figure below shows that after the 1400th episode the results improve but reach a plateau.  ![single_agent_2000](./images/single_agent_2_2000.png)
 
 I reduced the length of an episode by bounding the number of time steps to 500. 
-the agent was trained over 2000 episodes reaching an average score of 23. 
+The agent achieved an average of 16 after 1630 episodes. When running evaluations the agent was able to perform with an average of 33.
+ ![single_agent_solved](./images/single_agent_3_solved.png)
+ 
 
 ## 2. Multiple agent training
 
@@ -84,7 +86,8 @@ As explained in the Jupyter notebook, the Unity environmnent still require the 2
 
 With one agent we saw that reducing the length of the episode and increasing the memory size would improve learning. That is why we start training the multi agent with same parametres
 
-As result a score of 16 is achieved within 131 episodes. 
+As result a score of 16 is achieved within 131 episodes.
+
 ![multi_agent](./images/multiple_para_agent.png)
 
 ## 3. Improvement

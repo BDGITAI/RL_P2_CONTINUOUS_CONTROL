@@ -77,7 +77,15 @@ the agent was trained over 2000 episodes reaching an average score of 23.
 
 ## 2. Multiple agent training
 
+Intuitively, one can learn from others' experiences. If you see someone fall on a tile flooring you would approach the area carefully as you would assume the area is slippery.
+By training different agent in parallel, we will be able to gather quickly uncorrelated data and then distribute the knowledge to all agents for them to improve. In the multi agent Unity environmnent we benefit from having 20 different agents acting in their own "sphere". At the end of one episode we would have 20 times more experiences gathered compared to our single agent environmnent.
 
+As explained in the Jupyter notebook, the Unity environmnent still require the 20 actions to be passed when stepping it. It means all agents need to decide what action to take before the environment is stepped. Due to this contraint agents are not implemented in separate thread but are called consecutively.
+
+With one agent we saw that reducing the length of the episode and increasing the memory size would improve learning. That is why we start training the multi agent with same parametres
+
+As result a score of 16 is achieved within 131 episodes. 
+![multi_agent](./images/multiple_para_agent.png)
 
 ## 3. Improvement
 

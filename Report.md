@@ -65,11 +65,12 @@ Adam optimizer is chosen over SGD as it converges faster in early stages of trai
 
 ### Result
 The environment is considered solved when the agent is able to reach a score of 30 over 100 episodes.
-In a first attempt the agent was trained over 2000 episodes reaching an average score of 16. 
-I noticed the length of the episode compared to the memory could be an issue. At first he memory size was 1e6 with an episode lasting 1e4 steps only the latest 100 episodes were stored in the memory. The better the algorithm got the more similar the memory would be for the same episodes. This meant that the random sampling over 1e6 episodes would almost be equivalent to a random sampling over 100.
+In a first attempt the agent was trained over 2000 episodes reaching an average score of 16. ![single_agent_2000](./images/single_agent_1_2000.png)
+
+I noticed the length of the episode compared to the memory could be an issue. At first he memory size was 1e6 with an episode lasting 1e4 steps only the latest 100 episodes were stored in the memory. The better the algorithm got the more similar the memory would be for the same episodes. This meant that the random sampling over 1e6 episodes would almost be equivalent to a random sampling over 100. 
 
 With a memory size increase to 1e7, the agent was trained over 2000 episodes reaching an average score of 23. 
-The figure below shows that after the 1400th episode the results improve but reach a plateau.  ![single_agent_2000](./images/DQN_result.jpg)
+The figure below shows that after the 1400th episode the results improve but reach a plateau.  ![single_agent_2000](./images/single_agent_2_2000.png)
 
 I reduced the length of an episode by bounding the number of time steps to 500. 
 the agent was trained over 2000 episodes reaching an average score of 23. 

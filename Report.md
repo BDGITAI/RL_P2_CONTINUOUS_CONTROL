@@ -10,7 +10,7 @@
 ### Description
 
 #### Algorithm: DDPG
-The chosen algorithm is DDPG (see [Continuous control with deep reinforcement learning] (https://arxiv.org/abs/1509.02971))
+The chosen algorithm is DDPG (see [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971))
 
 The DDPG algorithm is an Actor Critic method built on the principles used in Deep Q learning (algorithm use in my first project). It uses a memory to store experiences and learned from them using a random sampling, thus breaking the correlation between consecutive experiences. It also uses a target network to help with the error computation stability. Instead of using a direct weight update a soft target update is used during the learning.
 
@@ -30,7 +30,7 @@ The DDPG algorithm is an Actor Critic method built on the principles used in Dee
 
 The Actor Critic algorithm aims is at the crossroads of Value based method and Policy based method. In the first project, I implemented a DQN algorithm that associated a value to each pair (state, action). In that case the action space was both finite and discrete. Which is not the case in this new environment. Policy based method aimed a finding directly the best policy. However, with this method, by waiting until the end of the episode to compute the reward we may not see good actions if the episode was a failure.
 
-The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see (Actor - Critic Algorithms) [http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf]
+The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see [Actor - Critic Algorithms](http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf))
 
 
 We can see the two networks being trained in by the agent while he steps:

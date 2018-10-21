@@ -9,8 +9,8 @@
 
 ### Description
 
-#### Algorithm : DDPG
-The chosen algorithm is DDPG (see [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971))
+#### Algorithm: DDPG
+The chosen algorithm is DDPG (see [Continuous control with deep reinforcement learning] (https://arxiv.org/abs/1509.02971))
 
 The DDPG algorithm is an Actor Critic method built on the principles used in Deep Q learning (algorithm use in my first project). It uses a memory to store experiences and learned from them using a random sampling, thus breaking the correlation between consecutive experiences. It also uses a target network to help with the error computation stability. Instead of using a direct weight update a soft target update is used during the learning.
 
@@ -28,9 +28,9 @@ The DDPG algorithm is an Actor Critic method built on the principles used in Dee
 
 #### Actor Critic
 
-The Actor Critic algorithm aims is at the crossroads of Value based method and Policy based method. In the first project, I implemented a DQN algorithm that associated a value to each pair (state,action). In that case the action space was both finite and discrete. Which is not the case in this new environmnent. Policy based method aimed a finding directly the best policy. However with this method, by waiting until the end of the episode to compute the reward we may not not see good actions if the episode was a failure.
+The Actor Critic algorithm aims is at the crossroads of Value based method and Policy based method. In the first project, I implemented a DQN algorithm that associated a value to each pair (state, action). In that case the action space was both finite and discrete. Which is not the case in this new environment. Policy based method aimed a finding directly the best policy. However, with this method, by waiting until the end of the episode to compute the reward we may not see good actions if the episode was a failure.
 
-The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see (Actor - Critic Algorithms)[http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf]
+The actor critic method implements two "brains" represented by two Neural Networks. The actor will decide of the best action to take while the critic assess independently if this was a good choice (see (Actor - Critic Algorithms) [http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_5_actor_critic_pdf.pdf]
 
 
 We can see the two networks being trained in by the agent while he steps:
@@ -45,11 +45,11 @@ We can see the two networks being trained in by the agent while he steps:
 Define the replay buffer size (number of experiences stored) Increased compared to default to help with training
 `Replay(memory_size=int(1e7), batch_size=64)    # replay buffer size`
 
-DDPG uses a local AC Network and a target AC Network for stability purposes. The target network weights are updated with local weights using soft update using parametre TAU (mixing parametre section 7 of DDPG paper 1e-3
+DDPG uses a local AC Network and a target AC Network for stability purposes. The target network weights are updated with local weights using soft update using parameter TAU (mixing parameter section 7 of DDPG paper 1e-3
 
 `config.target_network_mix = 1e-3             # for soft update of target parameters`
 
-Learning rate used for optimiser . Value from research paper 1e-4 for actor and 1 e-3 for critic
+Learning rate used for optimiser. Value from research paper 1e-4 for actor and 1 e-3 for critic
 
 `actor_opt_fn=lambda params: torch.optim.Adam(params, lr=1e-4),
 critic_opt_fn=lambda params: torch.optim.Adam(params, lr=1e-3)))               # learning rate `
@@ -80,11 +80,11 @@ The agent achieved an average of 16 after 1630 episodes. When running evaluation
 ## 2. Multiple agent training
 
 Intuitively, one can learn from others' experiences. If you see someone fall on a tile flooring you would approach the area carefully as you would assume the area is slippery.
-By training different agent in parallel, we will be able to gather quickly uncorrelated data and then distribute the knowledge to all agents for them to improve. In the multi agent Unity environmnent we benefit from having 20 different agents acting in their own "sphere". At the end of one episode we would have 20 times more experiences gathered compared to our single agent environmnent.
+By training different agent in parallel, we will be able to gather quickly uncorrelated data and then distribute the knowledge to all agents for them to improve. In the multi agent Unity environment we benefit from having 20 different agents acting in their own "sphere". At the end of one episode we would have 20 times more experiences gathered compared to our single agent environment.
 
-As explained in the Jupyter notebook, the Unity environmnent still require the 20 actions to be passed when stepping it. It means all agents need to decide what action to take before the environment is stepped. Due to this contraint agents are not implemented in separate thread but are called consecutively.
+As explained in the Jupyter notebook, the Unity environment still require the 20 actions to be passed when stepping it. It means all agents need to decide what action to take before the environment is stepped. Due to this constraint agents are not implemented in separate thread but are called consecutively.
 
-With one agent we saw that reducing the length of the episode and increasing the memory size would improve learning. That is why we start training the multi agent with same parametres
+With one agent we saw that reducing the length of the episode and increasing the memory size would improve learning. That is why we start training the multi agent with same parameters
 
 As result a score of 16 is achieved within 131 episodes.
 
@@ -92,6 +92,7 @@ As result a score of 16 is achieved within 131 episodes.
 
 ## 3. Improvement
 
-
+To accelerate training, we could try to reduce the length of the episode to find the optimum value that would give enough experience while keeping the length to a minimum.
+We could also experiment with another algorithm. In the paper [Benchmarking Deep Reinforcement Learning for Continuous Control](https://arxiv.org/pdf/1604.06778.pdf), TNPG and TRPO algorithm are shown to perform better than DDPG. 
 
 
